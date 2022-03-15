@@ -6,8 +6,8 @@
 //
 
 import Foundation
-struct GameEntry:Decodable {
+struct GameEntry {
     let question:String
     let answer:String
-    let didAnswerCorrectly:Bool
+    let answerType:AnswerStatus
 }

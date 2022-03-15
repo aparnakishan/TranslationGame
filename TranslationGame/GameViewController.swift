@@ -38,37 +38,48 @@ class GameViewController: UIViewController {
     
     @IBAction func incorrectButtontapped(_ sender: Any) {
         self.answerLabel.layer.removeAllAnimations()
-        validateAndSaveAnswer(with: false)
+        validateAndSaveAnswer(with: .incorrect)
     }
     
     @IBAction func correctButtonTapped(_ sender: Any) {
         self.answerLabel.layer.removeAllAnimations()
-        validateAndSaveAnswer(with: true)
+        validateAndSaveAnswer(with: .correct)
+    }
+    
+    func saveMissedQuestion() {
+        validateAndSaveAnswer(with: .missed)
     }
 
-    func validateAndSaveAnswer(with selectedOption:Bool) {
+    func validateAndSaveAnswer(with input:InputType) {
         self.didAnswerQuestion = true
-        if let isCorrect = viewModel?.checkAndSave(answer: viewModel!.currentAnswer, for: selectedOption) {
-            if isCorrect {
-                showAlert(with: "Yay!! You got it right.")
-            } else {
-                showAlert(with: "Uh oh.. You got it wrong!")
+        let answer = input != .missed ? self.viewModel!.currentAnswer : nil
+        if let answerStatus = viewModel?.checkAndSave(answer: answer, for: input) {
+            if let continueGame = self.viewModel?.canMoveToNextQuestion() {
+                if continueGame == .moveToNext {
+                    let action = UIAlertAction(title: "Next", style: .default, handler: { action in
+                                    self.goToNextQuestion()
+                                    self.updateUI()
+                                })
+                    showAlert(with: answerStatus.description , action: action)
+                } else {
+                    let action = UIAlertAction(title: "End Game", style: .default, handler: { action in
+                        self.dismiss(animated: true, completion: nil)
+                                })
+                    if let score = self.viewModel?.getScore() {
+                        showAlert(with: "You answered \(score.0) out of \(score.1) questions", action: action)
+                    }
+                }
             }
         }
     }
     
-    func saveMissedQuestion() {
-        _ = viewModel?.checkAndSave(answer: nil, for: false)
-        showAlert(with: "Uh oh.. You missed it!")
-    }
+
     
-    func showAlert(with title: String) {
-        let alert = UIAlertController(title: "Result", message: title, preferredStyle: UIAlertController.Style.alert)
-        let next = UIAlertAction(title: "Next", style: .default, handler: { action in
-            self.goToNextQuestion()
-            self.updateUI()
-        })
-        alert.addAction(next)
+    func showAlert(with message:String, action:UIAlertAction?) {
+        let alert = UIAlertController(title: "Result", message: message, preferredStyle: UIAlertController.Style.alert)
+        if let alertAction = action {
+            alert.addAction(alertAction)
+        }
         DispatchQueue.main.async {
             self.present(alert, animated: true)
         }
@@ -95,11 +106,11 @@ class GameViewController: UIViewController {
     }
     
     func updateUI() {
-            self.questionLabel.text = self.viewModel?.getQuestion()
-            self.answerLabel.text = self.viewModel?.getAnswer()
-            if let score = self.viewModel?.getScore().0, let total = self.viewModel?.getScore().1 {
-                self.scoreLabel.text = String("\(score)/\(total)")
-            }
+        self.questionLabel.text = self.viewModel?.getQuestion()
+        self.answerLabel.text = self.viewModel?.getAnswer()
+        if let score = self.viewModel?.getScore().0, let total = self.viewModel?.getScore().1 {
+            self.scoreLabel.text = String("\(score)/\(total)")
+        }
         self.moveIt(answerLabel, 5)
     }
 

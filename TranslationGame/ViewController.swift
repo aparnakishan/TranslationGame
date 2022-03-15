@@ -13,6 +13,7 @@ class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        getData()
         // Do any additional setup after loading the view.
     }
 
@@ -32,5 +33,14 @@ class ViewController: UIViewController {
         }
     }
 
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let gameViewController = segue.destination as? GameViewController {
+            let shuffled = self.translations.shuffled()
+            var gameTranslations:[Translation] = [Translation]()
+            gameTranslations.append(contentsOf: shuffled[0...9])
+                gameViewController.viewModel = GameViewModel(translations: gameTranslations)
+                gameViewController.modalPresentationStyle = .fullScreen
+        }
+    }
 }
 
