@@ -8,8 +8,9 @@
 import Foundation
 
 class TranslationsViewModel {
+    
     var translations:[Translation]?
-        
+
     func getTenRandomTranslationForGame() -> [Translation]? {
         if let data = self.translations {
             let shuffled = data.shuffled()
@@ -19,4 +20,5 @@ class TranslationsViewModel {
         }
         return nil
     }
+    
 }

@@ -77,4 +77,10 @@ class GameViewModelTest: XCTestCase {
         XCTAssertEqual(self.viewModel?.checkAndSave(answer: "class", for: .correct),.right)
         XCTAssertEqual(self.viewModel?.getScore().0,1)
     }
+    
+    func testGameResult() throws {
+        self.viewModel?.currentQuestionIndex = 2
+        XCTAssertEqual(self.viewModel?.checkAndSave(answer: "class", for: .correct),.right)
+        XCTAssertEqual(self.viewModel?.getGameResult(),"You answered 1 correctly out of 1 questions" )
+    }
 }

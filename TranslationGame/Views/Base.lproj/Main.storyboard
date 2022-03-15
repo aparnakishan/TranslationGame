@@ -146,9 +146,9 @@
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gkj-gw-OM8">
-                                <rect key="frame" x="5" y="370" width="404" height="21"/>
+                                <rect key="frame" x="5" y="341" width="404" height="50"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="21" id="bjl-Bn-TMp"/>
+                                    <constraint firstAttribute="height" constant="50" id="bjl-Bn-TMp"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>

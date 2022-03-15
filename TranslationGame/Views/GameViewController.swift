@@ -28,9 +28,7 @@ class GameViewController: UIViewController {
         answerLabel.lineBreakMode = .byWordWrapping //Word Wrap
         answerLabel.textAlignment = .center
         self.view.addSubview(answerLabel)
-        questionLabel.text = self.viewModel?.getQuestion()
-        answerLabel.text = self.viewModel?.getAnswer()
-        moveIt(answerLabel, 5)
+        updateUI()
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -59,6 +57,7 @@ class GameViewController: UIViewController {
                 if continueGame == .moveToNext {
                     let action = UIAlertAction(title: StringConstants.nextQuestionTitle, style: .default, handler: { action in
                                     self.goToNextQuestion()
+                                    self.showScore()
                                     self.updateUI()
                                 })
                     showAlert(with: answerStatus.description , action: action)
@@ -109,10 +108,12 @@ class GameViewController: UIViewController {
     func updateUI() {
         self.questionLabel.text = self.viewModel?.getQuestion()
         self.answerLabel.text = self.viewModel?.getAnswer()
+        self.moveIt(answerLabel, 5)
+    }
+    func showScore() {
         if let score = self.viewModel?.getScore().0, let total = self.viewModel?.getScore().1 {
             self.scoreLabel.text = String("\(score)/\(total)")
         }
-        self.moveIt(answerLabel, 5)
     }
 
 }
