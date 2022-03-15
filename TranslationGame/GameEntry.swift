@@ -1,0 +1,13 @@
+//
+//  GameEntry.swift
+//  TranslationGame
+//
+//  Created by Test Account on 15/03/22.
+//
+
+import Foundation
+struct GameEntry:Decodable {
+    let question:String
+    let answer:String
+    let didAnswerCorrectly:Bool
+}
