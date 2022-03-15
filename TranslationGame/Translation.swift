@@ -6,6 +6,7 @@
 //
 
 import Foundation
+
 struct Translation:Decodable {
     let text_eng:String
     let text_spa:String

@@ -6,6 +6,30 @@
 //
 
 import Foundation
+enum InputType{
+    case correct
+    case incorrect
+    case missed
+}
+
+enum QuestionStatus {
+    case moveToNext
+    case endGame
+}
+
+enum AnswerStatus: CustomStringConvertible  {
+    case right
+    case wrong
+    case missed
+    
+    var description : String {
+        switch self {
+        case .right: return "Yay!! You got it right"
+        case .wrong: return "Un oh.. You got it wrong"
+        case .missed: return "ohh.. You missed it"
+        }
+    }
+}
 class GameViewModel {
     var translations: [Translation]
     var gameEntries:[GameEntry] = [GameEntry]()
@@ -16,8 +40,15 @@ class GameViewModel {
         self.translations = translations
     }
     
+    func canMoveToNextQuestion() -> QuestionStatus {
+        if currentQuestionIndex == translations.count - 1 {
+            return .endGame
+        }
+        return .moveToNext
+    }
+    
     func moveToNextQuestion() {
-        currentQuestionIndex += 1
+            currentQuestionIndex += 1
     }
     func getCurrentTranslation() -> Translation {
         return self.translations[currentQuestionIndex]
@@ -35,25 +66,31 @@ class GameViewModel {
         }
         return currentAnswer
     }
-    func checkAndSave(answer: String?, for input:Bool) -> Bool {
+    func checkAndSave(answer: String?, for input:InputType) -> AnswerStatus {
         let currentTranslation = getCurrentTranslation()
-        var correctness = false
+        var correctness:AnswerStatus = .missed
         
         if let answer = answer {
-            if currentTranslation.text_eng == answer && input == true {
-                correctness = true
-            } else if currentTranslation.text_eng != answer && input == false {
-                correctness = true
+            correctness = .wrong
+            if currentTranslation.text_eng == answer && input == .correct {
+                correctness = .right
+            } else if currentTranslation.text_eng != answer && input == .incorrect {
+                correctness = .right
             }
         }
-        let gameEntry = GameEntry(question:currentTranslation.text_spa , answer: currentTranslation.text_eng, didAnswerCorrectly: correctness)
+        let gameEntry = GameEntry(question:currentTranslation.text_spa , answer: currentTranslation.text_eng, answerType:correctness)
         gameEntries.append(gameEntry)
         return correctness
     }
     
     func getScore() -> (Int,Int) {
-        let correctCount = gameEntries.filter{ $0.didAnswerCorrectly }.count
+        let correctCount = gameEntries.filter{ $0.answerType == .right }.count
         return ( correctCount, gameEntries.count)
+    }
+    
+    func getGameResult() -> String {
+        let score =  self.getScore()
+        return "You answered \(score.0) correctly out of \(score.1) questions"
     }
     
 }

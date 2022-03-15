@@ -21,7 +21,8 @@ class GameViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         answerLabel.frame = CGRect.init(x: self.view.frame.origin.x, y: self.view.frame.origin.y, width: self.view.frame.size.width * 0.75, height: 30)
-        answerLabel.backgroundColor = UIColor.red     //give color to the view
+        answerLabel.text = ""
+        answerLabel.textColor = UIColor.blue     //give color to the view
         answerLabel.center = self.view.center
         answerLabel.numberOfLines = 0 //If you want to display only 2 lines replace 0(Zero) with 2.
         answerLabel.lineBreakMode = .byWordWrapping //Word Wrap
@@ -56,17 +57,17 @@ class GameViewController: UIViewController {
         if let answerStatus = viewModel?.checkAndSave(answer: answer, for: input) {
             if let continueGame = self.viewModel?.canMoveToNextQuestion() {
                 if continueGame == .moveToNext {
-                    let action = UIAlertAction(title: "Next", style: .default, handler: { action in
+                    let action = UIAlertAction(title: StringConstants.nextQuestionTitle, style: .default, handler: { action in
                                     self.goToNextQuestion()
                                     self.updateUI()
                                 })
                     showAlert(with: answerStatus.description , action: action)
                 } else {
-                    let action = UIAlertAction(title: "End Game", style: .default, handler: { action in
+                    let action = UIAlertAction(title: StringConstants.endGameTitle, style: .default, handler: { action in
                         self.dismiss(animated: true, completion: nil)
                                 })
-                    if let score = self.viewModel?.getScore() {
-                        showAlert(with: "You answered \(score.0) out of \(score.1) questions", action: action)
+                    if let result = self.viewModel?.getGameResult() {
+                        showAlert(with: result, action: action)
                     }
                 }
             }
@@ -76,7 +77,7 @@ class GameViewController: UIViewController {
 
     
     func showAlert(with message:String, action:UIAlertAction?) {
-        let alert = UIAlertController(title: "Result", message: message, preferredStyle: UIAlertController.Style.alert)
+        let alert = UIAlertController(title: StringConstants.resultTitle, message: message, preferredStyle: UIAlertController.Style.alert)
         if let alertAction = action {
             alert.addAction(alertAction)
         }

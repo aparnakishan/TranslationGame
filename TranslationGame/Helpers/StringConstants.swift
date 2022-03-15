@@ -8,9 +8,14 @@
 import Foundation
 import Foundation
 
+
 struct StringConstants {
     static let jsonFileName = "words"
-    static let ErrorTitle = "Failed loading Json. Please try again"
     static let loadJsonError = "Failed loading Json. Please try again"
+   
+    static let nextQuestionTitle = "Next"
+    static let endGameTitle = "EndGame"
+    static let resultTitle = "Result"
+    static let ErrorTitle = "Result"
 
 }

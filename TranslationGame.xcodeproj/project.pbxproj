@@ -24,6 +24,7 @@
 		5F41E97127E0A14700CF5C9A /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F41E97027E0A14600CF5C9A /* GameViewController.swift */; };
 		5F41E97327E0A16000CF5C9A /* GameViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F41E97227E0A16000CF5C9A /* GameViewModel.swift */; };
 		5F41E97527E0A1A000CF5C9A /* GameEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F41E97427E0A1A000CF5C9A /* GameEntry.swift */; };
+		5F41E97727E0FA8F00CF5C9A /* GameViewModelTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F41E97627E0FA8F00CF5C9A /* GameViewModelTest.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -65,6 +66,7 @@
 		5F41E97027E0A14600CF5C9A /* GameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
 		5F41E97227E0A16000CF5C9A /* GameViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewModel.swift; sourceTree = "<group>"; };
 		5F41E97427E0A1A000CF5C9A /* GameEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameEntry.swift; sourceTree = "<group>"; };
+		5F41E97627E0FA8F00CF5C9A /* GameViewModelTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewModelTest.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -120,7 +122,6 @@
 				0F5ECF7927E08729007942AB /* ViewController.swift */,
 				5F41E97027E0A14600CF5C9A /* GameViewController.swift */,
 				0F5ECFAE27E08A23007942AB /* Helpers */,
-				0F5ECFA527E08786007942AB /* JsonLoader.swift */,
 				0F5ECFB327E08A85007942AB /* ViewModel */,
 				0F5ECF7B27E08729007942AB /* Main.storyboard */,
 				0F5ECFA927E08857007942AB /* Translation.swift */,
@@ -137,6 +138,7 @@
 			isa = PBXGroup;
 			children = (
 				0F5ECF8C27E0872C007942AB /* TranslationGameTests.swift */,
+				5F41E97627E0FA8F00CF5C9A /* GameViewModelTest.swift */,
 			);
 			path = TranslationGameTests;
 			sourceTree = "<group>";
@@ -153,6 +155,7 @@
 		0F5ECFAE27E08A23007942AB /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				0F5ECFA527E08786007942AB /* JsonLoader.swift */,
 				0F5ECFAF27E08A34007942AB /* StringConstants.swift */,
 			);
 			path = Helpers;
@@ -316,6 +319,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5F41E97727E0FA8F00CF5C9A /* GameViewModelTest.swift in Sources */,
 				0F5ECF8D27E0872C007942AB /* TranslationGameTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
